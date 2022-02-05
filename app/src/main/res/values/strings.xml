@@ -3,4 +3,5 @@
     <string name="score_value">Score is %1$d</string>
     <string name="timeleft_value">Time left %1$d</string>
     <string name="click_me">Click me!</string>
+    <string name="finish_text">Your final score is %1$d</string>
 </resources>
