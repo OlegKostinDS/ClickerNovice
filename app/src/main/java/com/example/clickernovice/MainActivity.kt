@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.PersistableBundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.clickernovice.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -22,6 +26,10 @@ class MainActivity : AppCompatActivity() {
         binding.scoreView.text = getString(R.string.score_value, score)
         binding.timeleftView.text = getString(R.string.timeleft_value, durationTotal / 1000)
         binding.clickMeBtn.setOnClickListener {
+            val anim = AnimationUtils.loadAnimation(
+                this, R.anim.anim
+            )
+            it.startAnimation(anim)
             incrementScore()
         }
         if (savedInstanceState != null) {
@@ -95,6 +103,29 @@ class MainActivity : AppCompatActivity() {
         isGameStarted = false
         binding.scoreView.text = getString(R.string.score_value, 0)
         binding.timeleftView.text = getString(R.string.timeleft_value, durationTotal / 1000)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+         super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+      if(item.itemId == R.id.menu_info)
+      {
+          showInfo()
+      }
+
+        return true
+    }
+
+    private fun showInfo() {
+val dialog = AlertDialog.Builder(this)
+        dialog.setTitle("version ${BuildConfig.VERSION_CODE}")
+        dialog.setMessage("my first app")
+        dialog.show()
     }
 
     private fun incrementScore() {
